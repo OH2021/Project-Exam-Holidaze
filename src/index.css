@@ -1,0 +1,10 @@
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* your custom styles can go below */
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+}
