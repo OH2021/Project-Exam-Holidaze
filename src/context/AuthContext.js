@@ -1,77 +1,59 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
-
-const API = "https://v2.api.noroff.dev";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState(() =>
-    localStorage.getItem("holidaze_token")
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || null
   );
-  const [user, setUser] = useState(() => {
-    const raw = localStorage.getItem("holidaze_user");
-    return raw ? JSON.parse(raw) : null;
-  });
+  const [token, setToken] = useState(localStorage.getItem("token"));
 
-  useEffect(() => {
-    if (token) {
-      localStorage.setItem("holidaze_token", token);
-    } else {
-      localStorage.removeItem("holidaze_token");
-    }
-  }, [token]);
-
-  useEffect(() => {
-    if (user) {
-      localStorage.setItem("holidaze_user", JSON.stringify(user));
-    } else {
-      localStorage.removeItem("holidaze_user");
-    }
-  }, [user]);
-
-  const register = async ({ name, email, password, venueManager }) => {
-    const res = await fetch(`${API}/auth/register`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, password, venueManager }),
-    });
-    const json = await res.json();
-    if (!res.ok) throw new Error(json?.message || "Registration failed");
-    // API may return token or just success. We return json to caller.
-    return json;
-  };
-
-  const login = async ({ email, password }) => {
-    const res = await fetch(`${API}/auth/login`, {
+  async function login(email, password) {
+    const res = await fetch("https://v2.api.noroff.dev/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     });
-    const json = await res.json();
-    if (!res.ok) throw new Error(json?.message || "Login failed");
-    // API typically returns { accessToken: "...", profile: {...} } or similar
-    // We'll try to extract token and username/profile if available
-    const accessToken = json?.accessToken || json?.token || json?.jwt || null;
-    // Some APIs return user info; otherwise store email as fallback
-    const profile = json?.profile ||
-      json?.user || { name: json?.name || email };
-    setToken(accessToken);
-    setUser(profile);
-    return { accessToken, profile, raw: json };
-  };
 
-  const logout = () => {
-    setToken(null);
+    const data = await res.json();
+
+    if (!res.ok) throw new Error(data.errors?.[0]?.message || "Login failed");
+
+    setUser(data.data);
+    setToken(data.data.accessToken);
+
+    localStorage.setItem("user", JSON.stringify(data.data));
+    localStorage.setItem("token", data.data.accessToken);
+  }
+
+  function logout() {
     setUser(null);
-  };
+    setToken(null);
+    localStorage.clear();
+  }
 
-  const getAuthHeader = () =>
-    token ? { Authorization: `Bearer ${token}` } : {};
+  async function updateAvatar(url) {
+    const res = await fetch(
+      `https://v2.api.noroff.dev/holidaze/profiles/${user.name}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          avatar: { url },
+        }),
+      }
+    );
+
+    const data = await res.json();
+    setUser(data.data);
+    localStorage.setItem("user", JSON.stringify(data.data));
+  }
 
   return (
-    <AuthContext.Provider
-      value={{ token, user, register, login, logout, getAuthHeader }}
-    >
+    <AuthContext.Provider value={{ user, token, login, logout, updateAvatar }}>
       {children}
     </AuthContext.Provider>
   );
