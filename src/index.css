@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* your custom styles can go below */
+/* custom styles below */
 body {
   margin: 0;
   font-family: "Roboto", sans-serif;

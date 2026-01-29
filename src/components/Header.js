@@ -1,8 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function Header() {
-  const { user, logout } = useAuth() || {};
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   return (
     <header className="bg-gray-800 text-white p-4 flex justify-between items-center">
@@ -16,27 +22,31 @@ export default function Header() {
 
         {user && <Link to="/bookings">My Bookings</Link>}
 
+        {/* Show only for venue managers */}
         {user?.venueManager && (
           <>
             <Link to="/venues/create">Create Venue</Link>
-            <Link to="/admin">Admin</Link>
           </>
         )}
 
-        {!user ? (
-          <>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
-          </>
-        ) : (
-          <>
-            <span className="ml-2">{user.name}</span>
+        {user ? (
+          <div className="flex items-center space-x-2 ml-4">
+            <span>Hi, {user.name}</span>
             <button
-              onClick={logout}
-              className="ml-2 bg-red-600 px-3 py-1 rounded"
+              onClick={handleLogout}
+              className="bg-red-600 px-3 py-1 rounded text-white hover:bg-red-700"
             >
               Logout
             </button>
+          </div>
+        ) : (
+          <>
+            <Link to="/login" className="ml-4">
+              Login
+            </Link>
+            <Link to="/register" className="ml-2">
+              Register
+            </Link>
           </>
         )}
       </nav>

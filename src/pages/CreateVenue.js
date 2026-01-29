@@ -1,89 +1,132 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function CreateVenue() {
-  const { user, token } = useAuth();
+  const { token, apiKey } = useAuth();
+  const navigate = useNavigate();
 
   const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-  const [media, setMedia] = useState("");
-  const [message, setMessage] = useState("");
+  const [mediaUrl, setMediaUrl] = useState("");
+  const [price, setPrice] = useState("");
+  const [maxGuests, setMaxGuests] = useState(1);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
-  async function handleCreate() {
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError("");
+    setSuccess("");
+
+    if (!token) {
+      setError("You must be logged in to create a venue.");
+      return;
+    }
+
     try {
-      const response = await fetch(
-        "https://v2.api.noroff.dev/holidaze/venues",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            name,
-            description,
-            price: Number(price),
-            media: media ? [media] : [],
-            maxGuests: 4,
-            venueManager: user.name,
-          }),
-        }
-      );
+      const res = await fetch("https://v2.api.noroff.dev/holidaze/venues", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          "X-Noroff-API-Key": apiKey,
+        },
+        body: JSON.stringify({
+          name,
+          description,
+          media: mediaUrl ? [{ url: mediaUrl }] : [],
+          price: Number(price),
+          maxGuests: Number(maxGuests),
+        }),
+      });
 
-      const data = await response.json();
-      if (!response.ok)
-        throw new Error(data.message || "Failed to create venue");
+      const data = await res.json();
 
-      setMessage("Venue created successfully!");
+      if (!res.ok) {
+        setError(data.errors?.[0]?.message || "Failed to create venue");
+        return;
+      }
+
+      setSuccess("Venue created successfully!");
+      // Redirect to the venue detail page
+      navigate(`/venue/${data.data.id}`);
     } catch (err) {
-      setMessage(err.message);
+      console.error(err);
+      setError("Something went wrong.");
     }
   }
 
   return (
-    <div className="p-4 max-w-xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Create Venue</h1>
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-2xl mx-auto p-4 border rounded mt-6"
+    >
+      <h2 className="text-2xl font-bold mb-4">Create a New Venue</h2>
 
-      <input
-        type="text"
-        placeholder="Venue name"
-        className="border p-2 w-full mb-3"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
+      {error && <p className="text-red-600 mb-2">{error}</p>}
+      {success && <p className="text-green-600 mb-2">{success}</p>}
 
-      <textarea
-        placeholder="Description"
-        className="border p-2 w-full mb-3"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
+      <label className="block mb-2">
+        Name
+        <input
+          type="text"
+          className="border w-full p-2"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+      </label>
 
-      <input
-        type="number"
-        placeholder="Price per night"
-        className="border p-2 w-full mb-3"
-        value={price}
-        onChange={(e) => setPrice(e.target.value)}
-      />
+      <label className="block mb-2">
+        Description
+        <textarea
+          className="border w-full p-2"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          required
+        />
+      </label>
 
-      <input
-        type="text"
-        placeholder="Image URL"
-        className="border p-2 w-full mb-3"
-        value={media}
-        onChange={(e) => setMedia(e.target.value)}
-      />
+      <label className="block mb-2">
+        Media URL
+        <input
+          type="url"
+          className="border w-full p-2"
+          value={mediaUrl}
+          onChange={(e) => setMediaUrl(e.target.value)}
+        />
+      </label>
+
+      <label className="block mb-2">
+        Price per night
+        <input
+          type="number"
+          className="border w-full p-2"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          required
+        />
+      </label>
+
+      <label className="block mb-4">
+        Max Guests
+        <input
+          type="number"
+          className="border w-full p-2"
+          value={maxGuests}
+          onChange={(e) => setMaxGuests(e.target.value)}
+          min={1}
+          required
+        />
+      </label>
 
       <button
-        onClick={handleCreate}
-        className="bg-blue-600 text-white px-4 py-2 rounded"
+        type="submit"
+        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
       >
         Create Venue
       </button>
-
-      {message && <p className="mt-4">{message}</p>}
-    </div>
+    </form>
   );
 }

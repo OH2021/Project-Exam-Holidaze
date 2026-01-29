@@ -1,23 +1,26 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Register() {
-  const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [venueManager, setVenueManager] = useState(false);
-  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const { login, setUser } = useAuth();
 
-  async function handleRegister(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-
-    if (!email.endsWith("@stud.noroff.no")) {
-      return setMessage("Only @stud.noroff.no emails may register.");
-    }
+    setError("");
 
     try {
-      const response = await fetch("https://v2.api.noroff.dev/auth/register", {
+      const res = await fetch("https://v2.api.noroff.dev/auth/register", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           name,
           email,
@@ -26,66 +29,77 @@ export default function Register() {
         }),
       });
 
-      const data = await response.json();
+      const data = await res.json();
+      if (!res.ok)
+        throw new Error(data.errors?.[0]?.message || "Registration failed");
 
-      if (!response.ok) {
-        return setMessage(data.errors?.[0]?.message || "Registration failed");
-      }
+      // Update user context immediately
+      setUser(data.data);
+      localStorage.setItem("user", JSON.stringify(data.data));
 
-      setMessage("Account created successfully! You can now log in.");
+      // Auto-login
+      await login(email, password);
+
+      navigate("/"); // go to homepage
     } catch (err) {
-      console.error(err);
-      setMessage("Something went wrong.");
+      setError(err.message);
     }
   }
 
   return (
-    <div className="p-4 max-w-lg mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Register</h1>
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4">
+      <h2 className="text-2xl font-bold mb-4">Register</h2>
 
-      <form onSubmit={handleRegister} className="space-y-4">
+      {error && <p className="text-red-600">{error}</p>}
+
+      <label className="block mb-2">
+        Name
         <input
           type="text"
-          placeholder="Full name"
-          className="border p-2 w-full"
+          className="border w-full p-2"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
         />
+      </label>
 
+      <label className="block mb-2">
+        Email
         <input
           type="email"
-          placeholder="Email (@stud.noroff.no)"
-          className="border p-2 w-full"
+          className="border w-full p-2"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
+      </label>
 
+      <label className="block mb-2">
+        Password
         <input
           type="password"
-          placeholder="Password"
-          className="border p-2 w-full"
+          className="border w-full p-2"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+      </label>
 
-        <label className="flex items-center gap-2">
-          <input
-            type="checkbox"
-            checked={venueManager}
-            onChange={(e) => setVenueManager(e.target.checked)}
-          />
-          Register as Venue Manager
-        </label>
+      <label className="block mb-4">
+        <input
+          type="checkbox"
+          checked={venueManager}
+          onChange={(e) => setVenueManager(e.target.checked)}
+        />{" "}
+        Register as Venue Manager
+      </label>
 
-        <button className="bg-blue-600 text-white px-4 py-2 rounded">
-          Register
-        </button>
-      </form>
-
-      {message && <p className="mt-4">{message}</p>}
-    </div>
+      <button
+        type="submit"
+        className="bg-blue-600 text-white px-4 py-2 rounded"
+      >
+        Register
+      </button>
+    </form>
   );
 }
