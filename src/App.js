@@ -14,7 +14,7 @@ import Admin from "./pages/Admin";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import MyBookings from "./pages/MyBookings";
-import Profile from "./pages/Profile"; // ensure import matches file name
+import Profile from "./pages/Profile";
 
 import CreateVenue from "./pages/CreateVenue";
 import EditVenue from "./pages/EditVenue";
