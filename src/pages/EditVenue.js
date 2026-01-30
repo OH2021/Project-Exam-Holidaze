@@ -1,127 +1,138 @@
-// src/pages/EditVenue.js
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function EditVenue() {
   const { id } = useParams();
+  const { token, apiKey } = useAuth();
   const navigate = useNavigate();
-  const { token, user } = useAuth();
 
-  const [venue, setVenue] = useState(null);
   const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
-  const [bookings, setBookings] = useState([]);
+  const [mediaUrl, setMediaUrl] = useState("");
+  const [price, setPrice] = useState("");
+  const [maxGuests, setMaxGuests] = useState(1);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     async function fetchVenue() {
+      try {
+        const res = await fetch(
+          `https://v2.api.noroff.dev/holidaze/venues/${id}`,
+        );
+        const data = await res.json();
+        setName(data.name);
+        setDescription(data.description);
+        setMediaUrl(data.media?.[0]?.url || "");
+        setPrice(data.price);
+        setMaxGuests(data.maxGuests);
+      } catch (err) {
+        setError("Failed to load venue");
+      }
+    }
+    fetchVenue();
+  }, [id]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    try {
       const res = await fetch(
-        `https://v2.api.noroff.dev/holidaze/venues/${id}?_bookings=true`,
+        `https://v2.api.noroff.dev/holidaze/venues/${id}`,
         {
+          method: "PUT",
           headers: {
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
+            "X-Noroff-API-Key": apiKey,
           },
+          body: JSON.stringify({
+            name,
+            description,
+            media: mediaUrl ? [{ url: mediaUrl }] : [],
+            price: Number(price),
+            maxGuests: Number(maxGuests),
+          }),
         },
       );
 
-      const data = await res.json();
-      setVenue(data.data);
-      setName(data.data.name);
-      setPrice(data.data.price);
-      setDescription(data.data.description);
-      setBookings(data.data.bookings || []);
+      if (!res.ok) throw new Error("Failed to update venue");
+
+      navigate(`/venue/${id}`);
+    } catch (err) {
+      setError(err.message);
     }
-
-    fetchVenue();
-  }, [id, token]);
-
-  async function handleUpdate(e) {
-    e.preventDefault();
-
-    await fetch(`https://v2.api.noroff.dev/holidaze/venues/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        name,
-        price,
-        description,
-      }),
-    });
-
-    navigate(`/venue/${id}`);
-  }
-
-  async function handleDelete() {
-    await fetch(`https://v2.api.noroff.dev/holidaze/venues/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    navigate("/venues");
-  }
-
-  if (!venue) return null;
-
-  if (venue.owner?.name !== user?.name) {
-    return <p>You cannot edit this venue.</p>;
-  }
+  };
 
   return (
-    <div className="p-4 max-w-3xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Edit Venue</h1>
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-2xl mx-auto p-4 border rounded mt-6"
+    >
+      <h2 className="text-2xl font-bold mb-4">Edit Venue</h2>
+      {error && <p className="text-red-600">{error}</p>}
 
-      <form onSubmit={handleUpdate} className="space-y-3">
+      <label className="block mb-2">
+        Name
         <input
-          className="border p-2 w-full"
+          type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          className="border w-full p-2"
+          required
         />
+      </label>
 
-        <input
-          className="border p-2 w-full"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-        />
-
+      <label className="block mb-2">
+        Description
         <textarea
-          className="border p-2 w-full"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          className="border w-full p-2"
+          required
         />
+      </label>
 
-        <button className="bg-blue-600 text-white px-4 py-2 rounded">
-          Update Venue
-        </button>
-      </form>
+      <label className="block mb-2">
+        Media URL
+        <input
+          type="url"
+          value={mediaUrl}
+          onChange={(e) => setMediaUrl(e.target.value)}
+          className="border w-full p-2"
+        />
+      </label>
+
+      <label className="block mb-2">
+        Price
+        <input
+          type="number"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          className="border w-full p-2"
+          required
+        />
+      </label>
+
+      <label className="block mb-4">
+        Max Guests
+        <input
+          type="number"
+          value={maxGuests}
+          min={1}
+          onChange={(e) => setMaxGuests(e.target.value)}
+          className="border w-full p-2"
+          required
+        />
+      </label>
 
       <button
-        onClick={handleDelete}
-        className="bg-red-600 text-white px-4 py-2 mt-4 rounded"
+        type="submit"
+        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
       >
-        Delete Venue
+        Save Changes
       </button>
-
-      <h2 className="text-xl font-semibold mt-8 mb-2">
-        Bookings For This Venue
-      </h2>
-
-      {bookings.length === 0 && <p>No bookings yet.</p>}
-
-      {bookings.map((b) => (
-        <div key={b.id} className="border p-3 rounded mb-2">
-          <p>
-            {new Date(b.dateFrom).toDateString()} →{" "}
-            {new Date(b.dateTo).toDateString()}
-          </p>
-          <p>Guests: {b.guests}</p>
-        </div>
-      ))}
-    </div>
+    </form>
   );
 }
