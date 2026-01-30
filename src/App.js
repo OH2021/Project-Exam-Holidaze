@@ -14,11 +14,13 @@ import Admin from "./pages/Admin";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import MyBookings from "./pages/MyBookings";
+import Profile from "./pages/Profile"; // ensure import matches file name
 
-// NEW IMPORTS
-import { useAuth } from "./context/AuthContext";
 import CreateVenue from "./pages/CreateVenue";
 import EditVenue from "./pages/EditVenue";
+import AvatarUpdate from "./components/AvatarUpdate";
+
+import { useAuth } from "./context/AuthContext";
 
 function App() {
   const { user } = useAuth(); // get logged-in user data
@@ -35,6 +37,18 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/bookings" element={<MyBookings />} />
           <Route path="/register" element={<Register />} />
+
+          {/* Profile page for logged-in users (capital P) */}
+          <Route
+            path="/Profile"
+            element={user ? <Profile /> : <Navigate to="/login" />}
+          />
+
+          {/* Avatar update page for logged-in users */}
+          <Route
+            path="/profile/avatar"
+            element={user ? <AvatarUpdate /> : <Navigate to="/login" />}
+          />
 
           {/* ✅ PROTECTED ROUTES FOR VENUE MANAGERS */}
           <Route

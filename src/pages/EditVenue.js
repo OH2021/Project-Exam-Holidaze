@@ -22,7 +22,7 @@ export default function EditVenue() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       const data = await res.json();

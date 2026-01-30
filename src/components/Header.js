@@ -22,16 +22,35 @@ export default function Header() {
 
         {user && <Link to="/bookings">My Bookings</Link>}
 
-        {/* Show only for venue managers */}
-        {user?.venueManager && (
-          <>
-            <Link to="/venues/create">Create Venue</Link>
-          </>
-        )}
+        {/* Only show create venue link for approved venue managers */}
+        {user?.venueManager && <Link to="/venues/create">Create Venue</Link>}
+
+        {/* Profile link for logged-in users */}
+        {user && <Link to="/Profile">Profile</Link>}
 
         {user ? (
           <div className="flex items-center space-x-2 ml-4">
-            <span>Hi, {user.name}</span>
+            {/* Avatar */}
+            {user.avatar?.url && (
+              <img
+                src={user.avatar.url}
+                alt={user.avatar.alt || "User Avatar"}
+                className="w-8 h-8 rounded-full object-cover"
+              />
+            )}
+
+            <div className="flex flex-col">
+              <span>
+                Hi, {user.name}
+                {/* Show pending message if requested venue manager */}
+                {user.venueManagerRequested && !user.venueManager && (
+                  <span className="text-yellow-400 ml-2 text-sm">
+                    (Venue Manager Pending)
+                  </span>
+                )}
+              </span>
+            </div>
+
             <button
               onClick={handleLogout}
               className="bg-red-600 px-3 py-1 rounded text-white hover:bg-red-700"

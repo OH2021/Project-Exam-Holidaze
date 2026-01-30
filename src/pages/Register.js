@@ -25,7 +25,7 @@ export default function Register() {
           name,
           email,
           password,
-          venueManager,
+          venueManager, // request venue manager
         }),
       });
 
@@ -33,9 +33,13 @@ export default function Register() {
       if (!res.ok)
         throw new Error(data.errors?.[0]?.message || "Registration failed");
 
-      // Update user context immediately
-      setUser(data.data);
-      localStorage.setItem("user", JSON.stringify(data.data));
+      // Add a local flag if user requested venue manager
+      const userWithPending = {
+        ...data.data,
+        venueManagerRequested: venueManager,
+      };
+      setUser(userWithPending);
+      localStorage.setItem("user", JSON.stringify(userWithPending));
 
       // Auto-login
       await login(email, password);

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function CreateVenue() {
-  const { token, apiKey } = useAuth();
+  const { user, token, apiKey } = useAuth();
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
@@ -14,15 +14,22 @@ export default function CreateVenue() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
+  if (!user) {
+    navigate("/login");
+  }
+
+  if (!user.venueManager) {
+    return (
+      <p className="text-center mt-6 text-red-600">
+        You registered as a venue manager, but your account is pending approval.
+      </p>
+    );
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
     setError("");
     setSuccess("");
-
-    if (!token) {
-      setError("You must be logged in to create a venue.");
-      return;
-    }
 
     try {
       const res = await fetch("https://v2.api.noroff.dev/holidaze/venues", {
@@ -49,7 +56,6 @@ export default function CreateVenue() {
       }
 
       setSuccess("Venue created successfully!");
-      // Redirect to the venue detail page
       navigate(`/venue/${data.data.id}`);
     } catch (err) {
       console.error(err);
@@ -63,7 +69,6 @@ export default function CreateVenue() {
       className="max-w-2xl mx-auto p-4 border rounded mt-6"
     >
       <h2 className="text-2xl font-bold mb-4">Create a New Venue</h2>
-
       {error && <p className="text-red-600 mb-2">{error}</p>}
       {success && <p className="text-green-600 mb-2">{success}</p>}
 

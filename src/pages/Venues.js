@@ -10,15 +10,15 @@ export default function Venues() {
     async function fetchVenues() {
       try {
         const response = await fetch(
-          "https://v2.api.noroff.dev/holidaze/venues"
+          "https://v2.api.noroff.dev/holidaze/venues",
         );
+
         if (!response.ok) throw new Error("Failed to fetch venues");
+
         const data = await response.json();
 
-        if (Array.isArray(data)) {
-          setVenues(data);
-        } else if (Array.isArray(data.data)) {
-          // Some APIs wrap the array inside a 'data' property
+        // The API wraps venues inside data.data
+        if (data && Array.isArray(data.data)) {
           setVenues(data.data);
         } else {
           throw new Error("Unexpected API response structure");
