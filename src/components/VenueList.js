@@ -8,7 +8,6 @@ export default function VenueList({ venues }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
       {venues.map((venue) => {
-        // Use first image if available, else a placeholder from Unsplash
         const imageUrl =
           venue.media && venue.media.length > 0 && venue.media[0].url
             ? venue.media[0].url
@@ -28,7 +27,14 @@ export default function VenueList({ venues }) {
               <div className="p-4">
                 <h3 className="text-xl font-semibold mb-1">{venue.name}</h3>
                 {venue.price !== undefined && (
-                  <p className="text-gray-700 mb-2">Price: ${venue.price}</p>
+                  <p className="text-gray-700 mb-1">
+                    Price: ${venue.price} / night
+                  </p>
+                )}
+                {venue.maxGuests !== undefined && (
+                  <p className="text-gray-700 mb-1">
+                    Max Guests: {venue.maxGuests}
+                  </p>
                 )}
                 {venue.description && (
                   <p className="text-gray-600 text-sm">

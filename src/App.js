@@ -17,7 +17,7 @@ import MyBookings from "./pages/MyBookings";
 import Profile from "./pages/Profile";
 import CreateVenue from "./pages/CreateVenue";
 import EditVenue from "./pages/EditVenue";
-import VenueBookings from "./pages/Bookings"; // NEW import
+import VenueBookings from "./pages/Bookings";
 
 import { useAuth } from "./context/AuthContext";
 
@@ -46,20 +46,23 @@ function App() {
             element={user ? <Profile /> : <Navigate to="/login" />}
           />
 
-          {/* Venue manager only routes */}
+          {/* Venue manager only for creating new venues */}
           <Route
             path="/venues/create"
             element={user?.venueManager ? <CreateVenue /> : <Navigate to="/" />}
           />
+
+          {/* Allow any logged-in user to open the Edit and Bookings pages,
+              then let those pages themselves verify ownership/permissions.
+              This fixes the case where an owner can't access because
+              user?.venueManager was false at the route level. */}
           <Route
             path="/venues/:id/edit"
-            element={user?.venueManager ? <EditVenue /> : <Navigate to="/" />}
+            element={user ? <EditVenue /> : <Navigate to="/login" />}
           />
           <Route
             path="/venues/:id/bookings"
-            element={
-              user?.venueManager ? <VenueBookings /> : <Navigate to="/" />
-            }
+            element={user ? <VenueBookings /> : <Navigate to="/login" />}
           />
         </Routes>
       </main>
