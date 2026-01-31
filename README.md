@@ -1,70 +1,70 @@
-# Getting Started with Create React App
+# Holidaze
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Holidaze** is a modern web application for booking venues, built for the Project Exam 2026. Users can browse, search, and book venues, while registered venue managers can create, update, and manage their venues.
 
-## Available Scripts
+**Live site:** [https://pe2holidaze2026.netlify.app/](https://pe2holidaze2026.netlify.app/)  
+**GitHub repository:** [https://github.com/OH2021/Project-Exam-Holidaze](https://github.com/OH2021/Project-Exam-Holidaze.git)  
+**Kanban Board:** [View Kanban Board](https://github.com/users/OH2021/projects/3)  
+**Gantt Chart:** [View Gantt Chart](https://drive.google.com/file/d/1OQfTSSYc37NOJK1fTiiDgjrZhfHvMUuV/view?usp=drive_link)  
+**Design Prototype:** [View Prototype](https://xd.adobe.com/view/c4d965bd-40f4-4c26-85b5-cb031719e70e-918a/)  
+**Style Guide:** [View Style Guide](https://github.com/OH2021/Project-Exam-Holidaze/blob/main/STYLE_GUIDE.md)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### For All Users
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Browse available venues with images, descriptions, prices, and max guests.
+- Search for specific venues by name.
+- View venue details with booking calendar and availability.
+- Book a venue for multiple days.
+- View personal bookings.
 
-### `npm test`
+### For Registered Venue Managers
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Register as a venue manager (pending approval from API).
+- Create new venues with title, description, media gallery, price, and max guests.
+- Update or delete venues they manage.
+- View bookings for their venues.
 
-### `npm run build`
+### Authentication
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Register and login with email and password.
+- Update user avatar.
+- Venue manager privileges are verified via the Holidaze API.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Technologies Used
 
-### `npm run eject`
+- **Frontend:** React.js, React Router, Tailwind CSS
+- **API:** [Holidaze API v2](https://docs.noroff.dev/docs/v2)
+- **Hosting:** Netlify
+- **Other Libraries:** react-calendar, fetch for API requests
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Project Structure
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+src/
+├── components/
+│ ├── Header.js
+│ ├── Footer.js
+│ ├── AvatarUpdate.js
+│ └── VenueList.js
+├── context/
+│ └── AuthContext.js
+├── pages/
+│ ├── Home.js
+│ ├── Venues.js
+│ ├── VenueDetail.js
+│ ├── Profile.js
+│ ├── MyBookings.js
+│ ├── Register.js
+│ ├── Login.js
+│ ├── CreateVenue.js
+│ ├── EditVenue.js
+└── App.js
+```
