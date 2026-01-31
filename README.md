@@ -77,21 +77,28 @@ src/
 
 git clone https://github.com/OH2021/Project-Exam-Holidaze.git
 
+```
+
 Navigate to the project folder:
 
+```bash
 cd Project-Exam-Holidaze
 
+```
 
 Install dependencies:
 
+```bash
 npm install
+```
 
 Usage
 
 Start the development server:
 
+```bash
 npm start
-
+```
 
 The app will run at http://localhost:3000
 . From here you can:
@@ -105,4 +112,3 @@ Update your avatar.
 Book venues for multiple days.
 
 If a venue manager, create, update, delete venues, and view bookings.
-```
