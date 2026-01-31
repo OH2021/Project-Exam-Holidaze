@@ -68,3 +68,41 @@ src/
 │ ├── EditVenue.js
 └── App.js
 ```
+
+## Installation
+
+1. Clone the repository:
+
+```bash
+
+git clone https://github.com/OH2021/Project-Exam-Holidaze.git
+
+Navigate to the project folder:
+
+cd Project-Exam-Holidaze
+
+
+Install dependencies:
+
+npm install
+
+Usage
+
+Start the development server:
+
+npm start
+
+
+The app will run at http://localhost:3000
+. From here you can:
+
+Browse venues and search by name.
+
+Register as a user or venue manager.
+
+Update your avatar.
+
+Book venues for multiple days.
+
+If a venue manager, create, update, delete venues, and view bookings.
+```
