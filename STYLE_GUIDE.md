@@ -1,226 +1,124 @@
 # Holidaze Style Guide
 
-Purpose
+## 1. Color Palette (Tailwind based)
 
-- Provide consistent conventions for code, markup, styles, commits, and reviews.
-- Make contributions predictable, readable, and maintainable.
-- Reflect the project's primary language: JavaScript (ES6+), with HTML and CSS.
+| Purpose                             | Tailwind Class       | Hex Value |
+| ----------------------------------- | -------------------- | --------- |
+| Primary (buttons, highlights)       | `bg-blue-600`        | `#2563EB` |
+| Primary Hover                       | `hover:bg-blue-700`  | `#1D4ED8` |
+| Success / Booking                   | `bg-green-600`       | `#16A34A` |
+| Success Hover                       | `hover:bg-green-700` | `#15803D` |
+| Destructive / Logout                | `bg-red-600`         | `#DC2626` |
+| Destructive Hover                   | `hover:bg-red-700`   | `#B91C1C` |
+| Secondary / Neutral (View Bookings) | `bg-gray-700`        | `#374151` |
+| Light Gray Background / cards       | `bg-gray-100`        | `#F3F4F6` |
+| Gray text                           | `text-gray-600`      | `#4B5563` |
+| Dark Text                           | `text-gray-900`      | `#111827` |
+| Borders / subtle                    | `border-gray-200`    | `#E5E7EB` |
 
-Table of contents
+## 2. Typography
 
-- Quick start
-- Formatting & editor config
-- JavaScript
-  - Syntax & features
-  - File & folder structure
-  - Naming
-  - Comments & documentation
-  - Error handling & async
-  - Testing and linting
-- HTML
-- CSS
-- Assets & static files
-- Git, branches, commits & PRs
-- Code review checklist
-- Helpful snippets
+Font stack:
 
-Quick start
-
-- Use Node 16+ (or the version defined in `.nvmrc` if present).
-- Install dependencies: `npm install`
-- Run lint: `npm run lint` (if configured)
-- Run tests: `npm test` (if configured)
-
-Formatting & editor config
-
-- Indentation: 2 spaces.
-- Line length: 100 characters.
-- Trailing semicolons: Yes (use semicolons to avoid ASI pitfalls).
-- Quotes: Single quotes in JavaScript; double quotes in HTML attributes.
-- End files with a newline.
-- Use Prettier and ESLint together. Add an `.editorconfig` and `.prettierrc` to the repo to enforce editor behavior.
-
-JavaScript (ES6+)
-
-- Use modern syntax (const/let, arrow functions, template literals, destructuring, spread/rest).
-- Prefer `const` for values that are not reassigned; use `let` only when necessary.
-- Use arrow functions for short callbacks and function expressions. Use `function` declarations for named functions where hoisting or `this` behavior matters.
-- Modules: use ES modules (`import` / `export`) where supported.
-- Avoid creating globals. Keep DOM / window access contained to small modules.
-
-File & folder structure (recommended)
-
-- src/
-  - api/ — network / API logic
-  - components/ — reusable UI bits (if applicable)
-  - pages/ — page-level scripts
-  - utils/ — small pure helpers
-  - styles/ — global CSS / variables
-- public/ or static/ — static assets
-- tests/ — unit/integration tests
-
-File naming
-
-- JavaScript files: kebab-case or camelCase (pick one consistently; recommend kebab-case for filenames: `user-list.js`).
-- Directories: kebab-case.
-- Component modules (if component is a class): PascalCase for exported class names.
-
-Naming conventions
-
-- Variables & functions: camelCase.
-- Classes/constructors: PascalCase.
-- Constants: UPPER_SNAKE_CASE for compile-time-like constants (rare).
-- Boolean variables: prefix with `is`, `has`, `should` when helpful (e.g., `isVisible`).
-
-Code style rules
-
-- Use single quotes for strings: `'text'`.
-- Use template literals for string interpolation: `` `Hello ${name}` ``.
-- Add trailing commas in multiline objects/arrays where applicable.
-- Prefer explicit return values.
-- Keep functions small (single responsibility) and prefer pure functions for logic where possible.
-
-Comments & documentation
-
-- Use JSDoc for exported/public functions and modules:
-  ```js
-  /**
-   * Fetch list of offers.
-   * @param {Object} opts - request options
-   * @returns {Promise<Array>}
-   */
-  export async function fetchOffers(opts) { ... }
-  ```
-- Write comments explaining "why" more than "what".
-- Remove commented-out code before merging.
-
-Error handling & async
-
-- Use `async/await` with try/catch for async flows.
-- Avoid silent failures; surface errors to caller or log with context.
-- Normalize network errors where possible (e.g., create an `apiError` wrapper).
-
-Testing & linting
-
-- Add unit tests for pure functions.
-- Test edge cases and async flows.
-- Use ESLint with a shared baseline (Airbnb or recommended rules) and Prettier for formatting.
-- Add npm scripts:
-  - `npm run lint`
-  - `npm run lint:fix`
-  - `npm run format`
-  - `npm test`
-
-HTML
-
-- Use semantic HTML elements (`main`, `header`, `nav`, `section`, `article`, `footer`).
-- Indentation: 2 spaces.
-- Attribute order: logical grouping is fine; avoid arbitrary re-ordering.
-- Use meaningful alt text for images.
-- Prefer progressive enhancement: content first, JS improves experience.
-- Keep templates small and focused.
-
-Accessibility (A11y)
-
-- Provide `alt` for images.
-- Ensure interactive controls are reachable via keyboard (use `<button>`, not clickable `<div>`).
-- Use labels for form controls and `aria-*` where appropriate.
-- Ensure color contrast meets WCAG AA wherever possible.
-- Include a visible "skip to content" link for keyboard users.
-
-CSS
-
-- Use BEM-style naming for component classes: `.component`, `.component__element`, `.component--modifier`.
-- Class names: kebab-case.
-- Keep CSS modular: scope styles to components or files.
-- Prefer CSS variables for theme values (colors, spacing): `--color-primary`.
-- Avoid `!important`. If needed, document why and scope narrowly.
-- Order properties logically (positioning, box model, typography, visuals).
-- Use a reset or normalize as appropriate.
-
-Assets & static files
-
-- Optimize images (use modern formats where practical: WebP, AVIF) and provide fallbacks for browsers that need them.
-- Store SVGs as inline when interactive or as files when decorative and cacheable.
-- Use descriptive filenames and organize by purpose (icons/, images/, fonts/).
-
-Git, branches, commits & PRs
-
-- Branch naming: `feature/short-description`, `fix/short-description`, `chore/short-description`.
-- Commit messages: use Conventional Commits style:
-  - `feat: add booking form`
-  - `fix(api): handle 404 on offers`
-  - `docs: update README`
-- Open PRs with:
-  - Title and description with what changed, why, and relevant issue numbers.
-  - Link to screenshots or steps to test if UI affected.
-  - Assign reviewers and add labels.
-- Rebase or squash commits for a clean history (follow project policy).
-
-Code review checklist
-
-- Does the change compile and run?
-- Are there tests or updated tests for new behavior?
-- Is the code readable and small enough to review?
-- Are edge cases & error flows handled?
-- Are accessibility considerations addressed?
-- Are there any performance regressions?
-- Documentation / changelog updated if needed.
-
-Examples
-
-JavaScript
-
-```js
-// src/utils/format-date.js
-/**
- * Format a date to `YYYY-MM-DD`.
- * @param {Date|string|number} input
- * @returns {string}
- */
-export function formatDate(input) {
-  const d = new Date(input);
-  const yyyy = d.getFullYear();
-  const mm = String(d.getMonth() + 1).padStart(2, "0");
-  const dd = String(d.getDate()).padStart(2, "0");
-  return `${yyyy}-${mm}-${dd}`;
-}
+```
+font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+"Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 ```
 
-HTML
+| Element          | Tailwind Class             |
+| ---------------- | -------------------------- |
+| Page Title       | `text-3xl font-bold`       |
+| Section Heading  | `text-2xl font-semibold`   |
+| Subheading       | `text-xl font-semibold`    |
+| Button text      | `text-white font-semibold` |
+| Normal body text | `text-base text-gray-700`  |
+
+## 3. Buttons
+
+### Primary (Blue)
 
 ```html
-<a class="skip-link" href="#main">Skip to content</a>
-<main id="main">
-  <h1>Holidaze</h1>
-</main>
+class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded"
 ```
 
-CSS (BEM)
+### Success / Positive (Green)
 
-```css
-.card {
-  /* block */
-  --card-padding: 1rem;
-  padding: var(--card-padding);
-}
-.card__title {
-  /* element */
-}
-.card--highlight {
-  /* modifier */
-}
+```html
+class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2
+rounded"
 ```
 
-What to add to the repo (recommended next steps)
+### Destructive (Red)
 
-- `.editorconfig` to standardize editors.
-- `.prettierrc` and `.eslintrc.json` (extend an established config).
-- A `CONTRIBUTING.md` that references this style guide.
-- Optional: Git hooks (husky) to run `lint` and `format` before commit.
+```html
+class="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded"
+```
 
-If you want, I can:
+### Secondary / Neutral (Gray)
 
-- Add `.eslintrc` / `.prettierrc` / `.editorconfig` templates.
-- Open a PR adding this `STYLE_GUIDE.md` to the repository.
-- Generate runnable configuration (npm scripts + husky pre-commit) for you.
+```html
+class="bg-gray-700 text-white font-semibold px-4 py-2 rounded"
+```
+
+## 4. Layout & Spacing
+
+| Spacing          | Utility          |
+| ---------------- | ---------------- |
+| Small padding    | `p-2`            |
+| Standard spacing | `p-4`            |
+| Bigger spacing   | `p-6`, `p-8`     |
+| Grid gaps        | `gap-4`, `gap-6` |
+| Margins          | `mb-4`, `mt-6`   |
+
+## 5. Imagery
+
+Venue images:
+
+```html
+class="w-full h-48 object-cover rounded"
+```
+
+Placeholder image:
+
+```
+https://images.unsplash.com/photo-1507525428034-b723cf961d3e?crop=entropy&cs=tinysrgb&fit=crop&h=300&w=400
+```
+
+## 6. Form Fields & Inputs
+
+```html
+class="border p-2 w-full rounded"
+```
+
+## 7. Alerts & Messages
+
+- Success: `text-green-600`
+- Error: `text-red-600`
+
+## 8. Tailwind Utility Map
+
+| Category    | Tailwind Prefix        |
+| ----------- | ---------------------- |
+| Background  | `bg-`                  |
+| Text Color  | `text-`                |
+| Border      | `border-`              |
+| Padding     | `p-`, `px-`, `py-`     |
+| Margin      | `m-`, `mb-`, `mt-`     |
+| Flex & Grid | `flex`, `grid`, `gap-` |
+| Font        | `font-`, `text-`       |
+
+## Usage Notes
+
+1. **Primary buttons** for main actions (login, register, submit).
+2. **Success buttons** for bookings and confirmations.
+3. **Destructive buttons** for logout or delete actions.
+4. **Neutral buttons** for secondary actions like navigating to bookings.
+
+---
+
+**Colors Summary:**
+
+- Blue: `#2563EB`
+- Green: `#16A34A`
+- Red: `#DC2626`
+- Gray neutrals: `#374151`, `#F3F4F6`
