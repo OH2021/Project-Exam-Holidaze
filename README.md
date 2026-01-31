@@ -2,6 +2,10 @@
 
 **Holidaze** is a modern web application for booking venues, built for the Project Exam 2026. Users can browse, search, and book venues, while registered venue managers can create, update, and manage their venues.
 
+---
+
+URLs:
+
 **Live site:** [https://pe2holidaze2026.netlify.app/](https://pe2holidaze2026.netlify.app/)  
 **GitHub repository:** [https://github.com/OH2021/Project-Exam-Holidaze](https://github.com/OH2021/Project-Exam-Holidaze.git)  
 **Kanban Board:** [View Kanban Board](https://github.com/users/OH2021/projects/3)  
