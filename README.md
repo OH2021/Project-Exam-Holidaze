@@ -4,14 +4,14 @@
 
 ---
 
-URLs:
+## URLs
 
-**Live site:** [https://pe2holidaze2026.netlify.app/](https://pe2holidaze2026.netlify.app/)  
-**GitHub repository:** [https://github.com/OH2021/Project-Exam-Holidaze](https://github.com/OH2021/Project-Exam-Holidaze.git)  
-**Kanban Board:** [View Kanban Board](https://github.com/users/OH2021/projects/3)  
-**Gantt Chart:** [View Gantt Chart](https://drive.google.com/file/d/1OQfTSSYc37NOJK1fTiiDgjrZhfHvMUuV/view?usp=drive_link)  
-**Design Prototype:** [View Prototype](https://xd.adobe.com/view/c4d965bd-40f4-4c26-85b5-cb031719e70e-918a/)  
-**Style Guide:** [View Style Guide](https://github.com/OH2021/Project-Exam-Holidaze/blob/main/STYLE_GUIDE.md)
+- **Gantt Chart:** [View Gantt Chart](https://drive.google.com/file/d/1OQfTSSYc37NOJK1fTiiDgjrZhfHvMUuV/view?usp=drive_link)
+- **Design Prototype:** [View Prototype](https://xd.adobe.com/view/c4d965bd-40f4-4c26-85b5-cb031719e70e-918a/)
+- **Style Guide:** [View Style Guide](https://github.com/OH2021/Project-Exam-Holidaze/blob/main/STYLE_GUIDE.md)
+- **Kanban Board:** [View Kanban Board](https://github.com/users/OH2021/projects/3)
+- **Repository:** [GitHub Repository](https://github.com/OH2021/Project-Exam-Holidaze.git)
+- **Hosted Demo:** [View Live Site](https://pe2holidaze2026.netlify.app/)
 
 ---
 
