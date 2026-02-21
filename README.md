@@ -1,118 +1,121 @@
-# Holidaze
+# Project Exam – Holidaze
 
-**Holidaze** is a modern web application for booking venues, built for the Project Exam 2026. Users can browse, search, and book venues, while registered venue managers can create, update, and manage their venues.
+![Project Screenshot](./src/assets/screenshot.png)
 
----
-
-## URLs
-
-- **Gantt Chart:** [View Gantt Chart](https://drive.google.com/file/d/1OQfTSSYc37NOJK1fTiiDgjrZhfHvMUuV/view?usp=drive_link)
-- **Design Prototype:** [View Prototype](https://xd.adobe.com/view/c4d965bd-40f4-4c26-85b5-cb031719e70e-918a/)
-- **Style Guide:** [View Style Guide](https://github.com/OH2021/Project-Exam-Holidaze/blob/main/STYLE_GUIDE.md)
-- **Kanban Board:** [View Kanban Board](https://github.com/users/OH2021/projects/3)
-- **Repository:** [GitHub Repository](https://github.com/OH2021/Project-Exam-Holidaze.git)
-- **Hosted Demo:** [View Live Site](https://pe2holidaze2026.netlify.app/)
+A full-featured accommodation booking platform built as part of the Noroff Project Exam 2.
 
 ---
 
-## Features
+## Description
 
-### For All Users
+Holidaze is a modern frontend application designed for a holiday accommodation booking experience. Built with React (and tooling such as Vite/Tailwind if used), this project allows users to browse venues, register/login with a `stud.noroff.no` email, book stays, and manage their bookings or venue listings depending on user role.
 
-- Browse available venues with images, descriptions, prices, and max guests.
-- Search for specific venues by name.
-- View venue details with booking calendar and availability.
-- Book a venue for multiple days.
-- View personal bookings.
+Holidaze includes both a customer-facing side for booking stays and an admin/venue manager role for creating and managing venue listings. The application integrates with the Noroff Holidaze API for authentication and data operations. :contentReference[oaicite:0]{index=0}
 
-### For Registered Venue Managers
+### Features
 
-- Register as a venue manager (pending approval from API).
-- Create new venues with title, description, media gallery, price, and max guests.
-- Update or delete venues they manage.
-- View bookings for their venues.
-
-### Authentication
-
-- Register and login with email and password.
-- Update user avatar.
-- Venue manager privileges are verified via the Holidaze API.
+- Browse and search available accommodation venues  
+- Detailed venue information with images and availability  
+- User registration and login with email restrictions  
+- Customer role — book stays and view your bookings  
+- Venue manager role — create, edit or delete your venues  
+- JWT authentication and secure session handling  
+- Responsive UI for mobile and desktop  
 
 ---
 
-## Technologies Used
+## Built With
 
-- **Frontend:** React.js, React Router, Tailwind CSS
-- **API:** [Holidaze API v2](https://docs.noroff.dev/docs/v2)
-- **Hosting:** Netlify
-- **Other Libraries:** react-calendar, fetch for API requests
+- React  
+- (Optional) Vite (if the project setup uses Vite)  
+- (Optional) Tailwind CSS or other CSS framework  
+- JavaScript / TypeScript (depending on setup)  
+- Noroff Holidaze API for backend data and authentication :contentReference[oaicite:1]{index=1}
 
 ---
 
-## Project Structure
+## Getting Started
 
-```
-src/
-├── components/
-│ ├── Header.js
-│ ├── Footer.js
-│ ├── AvatarUpdate.js
-│ └── VenueList.js
-├── context/
-│ └── AuthContext.js
-├── pages/
-│ ├── Home.js
-│ ├── Venues.js
-│ ├── VenueDetail.js
-│ ├── Profile.js
-│ ├── MyBookings.js
-│ ├── Register.js
-│ ├── Login.js
-│ ├── CreateVenue.js
-│ ├── EditVenue.js
-└── App.js
-```
+### Installing
 
-## Installation
+To get a local copy of this project up and running:
 
 1. Clone the repository:
 
 ```bash
-
 git clone https://github.com/OH2021/Project-Exam-Holidaze.git
-
 ```
 
-Navigate to the project folder:
+2. Navigate into the project folder:
 
 ```bash
 cd Project-Exam-Holidaze
-
 ```
 
-Install dependencies:
+3. Install dependencies:
 
 ```bash
 npm install
 ```
 
-Usage
+---
 
-Start the development server:
+## Running
+
+To start the app in development mode:
 
 ```bash
 npm start
 ```
 
-The app will run at http://localhost:3000
-. From here you can:
+or (if using Vite):
 
-Browse venues and search by name.
+```bash
+npm run dev
+```
 
-Register as a user or venue manager.
+Open your browser and go to **http://localhost:3000** (Create React App) or the displayed Vite localhost port.
 
-Update your avatar.
+---
 
-Book venues for multiple days.
+## Scripts
 
-If a venue manager, create, update, delete venues, and view bookings.
+Most common scripts included:
+
+```bash
+npm start        # Start development server
+npm run build    # Create production build
+npm test         # Run test suite (if tests are configured)
+npm run lint     # Run ESLint checks
+```
+
+---
+
+## Contributing
+
+This project was created as an educational exam submission. External contributions are not required but you are welcome to:
+
+1. Fork the repository  
+2. Create a feature branch  
+3. Submit a pull request with improvements  
+
+---
+
+## Contact
+
+- GitHub: https://github.com/OH2021  
+- LinkedIn: *(Add your LinkedIn profile URL here)*  
+
+---
+
+## License
+
+This project is created for educational purposes as part of the Noroff Frontend Development Program.
+
+---
+
+## Acknowledgments
+
+- Noroff API documentation  
+- React documentation  
+- Holidaze assignment brief :contentReference[oaicite:2]{index=2}
