@@ -123,8 +123,8 @@ If you would like to suggest improvements:
 
 ## Contact
 
-GitHub: https://github.com/OH2021
-Email: ole.henrik.haug@gmail.com
+GitHub: https://github.com/OH2021  
+Email: ole.henrik.haug@gmail.com  
 LinkedIn: https://www.linkedin.com/in/ole-henrik-haug-8a17751b9/
 
 ---
