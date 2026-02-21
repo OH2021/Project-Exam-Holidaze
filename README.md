@@ -1,36 +1,45 @@
-# Project Exam – Holidaze
+# Holidaze
 
-![Project Screenshot](./src/assets/screenshot.png)
+![Project Screenshot] <img width="2547" height="1315" alt="holidaze-screenshot" src="https://github.com/user-attachments/assets/0b0a940f-bfe1-4add-b47b-5a966a0dd554" />
 
-A full-featured accommodation booking platform built as part of the Noroff Project Exam 2.
+
+A modern accommodation booking web application built for Project Exam 2026. Users can browse, search, and book venues, while registered venue managers can create and manage their own venues.
 
 ---
 
 ## Description
 
-Holidaze is a modern frontend application designed for a holiday accommodation booking experience. Built with React (and tooling such as Vite/Tailwind if used), this project allows users to browse venues, register/login with a `stud.noroff.no` email, book stays, and manage their bookings or venue listings depending on user role.
+Holidaze is a full-featured venue booking platform developed as part of the Noroff Frontend Development Project Exam 2026.
 
-Holidaze includes both a customer-facing side for booking stays and an admin/venue manager role for creating and managing venue listings. The application integrates with the Noroff Holidaze API for authentication and data operations. :contentReference[oaicite:0]{index=0}
+The application allows regular users to browse available venues, check availability, and book stays. Registered venue managers have additional privileges, enabling them to create, update, and manage their own venue listings.
 
-### Features
+The project integrates with the Holidaze API v2 for authentication, venue management, and booking functionality.
 
-- Browse and search available accommodation venues  
-- Detailed venue information with images and availability  
-- User registration and login with email restrictions  
-- Customer role — book stays and view your bookings  
-- Venue manager role — create, edit or delete your venues  
-- JWT authentication and secure session handling  
-- Responsive UI for mobile and desktop  
+### Key Features
+
+- Browse venues with images, pricing, and guest capacity
+- Search venues by name
+- View detailed venue pages with booking calendar
+- Book venues for multiple days
+- View personal bookings
+- Register and login with email and password
+- Update user avatar
+- Register as a venue manager
+- Create, edit, and delete venues (venue managers only)
+- View bookings for managed venues
+- Fully responsive design
 
 ---
 
 ## Built With
 
-- React  
-- (Optional) Vite (if the project setup uses Vite)  
-- (Optional) Tailwind CSS or other CSS framework  
-- JavaScript / TypeScript (depending on setup)  
-- Noroff Holidaze API for backend data and authentication :contentReference[oaicite:1]{index=1}
+- React.js
+- React Router
+- Tailwind CSS
+- Holidaze API v2
+- Netlify (Hosting)
+- react-calendar
+- Fetch API
 
 ---
 
@@ -38,21 +47,19 @@ Holidaze includes both a customer-facing side for booking stays and an admin/ven
 
 ### Installing
 
-To get a local copy of this project up and running:
-
-1. Clone the repository:
+Clone the repository:
 
 ```bash
 git clone https://github.com/OH2021/Project-Exam-Holidaze.git
 ```
 
-2. Navigate into the project folder:
+Navigate into the project folder:
 
 ```bash
 cd Project-Exam-Holidaze
 ```
 
-3. Install dependencies:
+Install the dependencies:
 
 ```bash
 npm install
@@ -62,60 +69,77 @@ npm install
 
 ## Running
 
-To start the app in development mode:
+To run the app in development mode:
 
 ```bash
 npm start
 ```
 
-or (if using Vite):
+The application will run at:
+
+http://localhost:3000
+
+To create a production build:
 
 ```bash
-npm run dev
+npm run build
 ```
-
-Open your browser and go to **http://localhost:3000** (Create React App) or the displayed Vite localhost port.
 
 ---
 
-## Scripts
+## Project Resources
 
-Most common scripts included:
+- **Gantt Chart:**  
+  https://drive.google.com/file/d/1OQfTSSYc37NOJK1fTiiDgjrZhfHvMUuV/view?usp=drive_link
 
-```bash
-npm start        # Start development server
-npm run build    # Create production build
-npm test         # Run test suite (if tests are configured)
-npm run lint     # Run ESLint checks
-```
+- **Design Prototype:**  
+  https://xd.adobe.com/view/c4d965bd-40f4-4c26-85b5-cb031719e70e-918a/
+
+- **Style Guide:**  
+  https://github.com/OH2021/Project-Exam-Holidaze/blob/main/STYLE_GUIDE.md
+
+- **Kanban Board:**  
+  https://github.com/users/OH2021/projects/3
+
+- **Repository:**  
+  https://github.com/OH2021/Project-Exam-Holidaze.git
+
+- **Hosted Demo (Live Site):**  
+  https://pe2holidaze2026.netlify.app/
 
 ---
 
 ## Contributing
 
-This project was created as an educational exam submission. External contributions are not required but you are welcome to:
+This project was developed as part of a school exam and is not currently open for public contributions.
 
-1. Fork the repository  
-2. Create a feature branch  
-3. Submit a pull request with improvements  
+If you would like to suggest improvements:
+
+1. Fork the repository
+2. Create a new branch
+3. Submit a pull request for review
 
 ---
 
 ## Contact
 
-- GitHub: https://github.com/OH2021  
-- LinkedIn: *(Add your LinkedIn profile URL here)*  
+GitHub: https://github.com/OH2021  
+LinkedIn: *(Add your LinkedIn profile link here)*
 
 ---
 
 ## License
 
-This project is created for educational purposes as part of the Noroff Frontend Development Program.
+This project was created for educational purposes as part of the Noroff Frontend Development Program.
+
+If you are unsure about licensing, you may add a LICENSE file or specify the license type here.
 
 ---
 
 ## Acknowledgments
 
-- Noroff API documentation  
-- React documentation  
-- Holidaze assignment brief :contentReference[oaicite:2]{index=2}
+- Noroff Frontend Development Program
+- Holidaze API documentation
+- React documentation
+- Tailwind CSS documentation
+- React Router documentation
