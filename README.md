@@ -1,6 +1,6 @@
 # Holidaze
 
-![Project Screenshot]<img width="2547" height="1315" alt="holidaze-screenshot" src="https://github.com/user-attachments/assets/0b0a940f-bfe1-4add-b47b-5a966a0dd554" />
+<img width="2547" height="1315" alt="holidaze-screenshot" src="https://github.com/user-attachments/assets/0b0a940f-bfe1-4add-b47b-5a966a0dd554" />
 
 
 A modern accommodation booking web application built for Project Exam 2026. Users can browse, search, and book venues, while registered venue managers can create and manage their own venues.
