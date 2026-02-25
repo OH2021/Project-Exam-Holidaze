@@ -133,8 +133,6 @@ If you would like to suggest improvements:
 
 This project was created for educational purposes as part of the Noroff Frontend Development Program.
 
-If you are unsure about licensing, you may add a LICENSE file or specify the license type here.
-
 ---
 
 ## Acknowledgments
